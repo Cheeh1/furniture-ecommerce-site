@@ -56,7 +56,9 @@ const Navbar = () => {
           <Link to="/contact">
             <img src={vector} alt="vector" />
           </Link>
-          <img src={heart} alt="heart" />
+          <Link to="/favorite">
+            <img src={heart} alt="heart" />
+          </Link>
 
           <img
             onClick={handleModal}

@@ -8,6 +8,7 @@ import Checkout from "../screens/Checkout";
 import Cart from "../screens/Cart";
 import Contact from "../screens/Contact";
 import Errorpage from "../screens/Errorpage";
+import Favorite from "../screens/Favorite";
 const RouterLink = () => {
   return (
     <Router>
@@ -19,6 +20,7 @@ const RouterLink = () => {
         <Route path="/checkout" element={<Checkout />}/>
         <Route path="/cart" element={<Cart />}/>
         <Route path="/contact" element={<Contact />}/>
+        <Route path="/favorite" element={<Favorite />}/>
         <Route path="*" element={<Errorpage />}/>
       </Routes>
       <Footer />

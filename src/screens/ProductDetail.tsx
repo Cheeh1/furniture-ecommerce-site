@@ -2,14 +2,16 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import arrow from "../assets/icons/arrow.svg";
 import starFilled from "../assets/icons/star-filled.svg";
-import favorite from "../assets/icons/favorite.svg";
+// import favorite from "../assets/icons/favorite.svg";
 import starHalf from "../assets/icons/star-half.svg";
 import facebook from "../assets/icons/facebook.svg";
 import twitter from "../assets/icons/twitter.svg";
 import linkedin from "../assets/icons/linkedin.svg";
 import { ProductData } from "../data/ProductData";
+import { useFavorite } from "../hooks/useFavorite";
 
 const ProductDetail = () => {
+  const { favorites, handleFavorite } = useFavorite();
   const [count, setCount] = useState<number>(0);
   const { Id } = useParams();
 
@@ -31,35 +33,35 @@ const ProductDetail = () => {
 
             <section className="flex flex-col lg:flex-row gap-10 justify-center">
               <div className="flex lg:flex-col flex-row gap-5 justify-center">
-                  <img
-                    className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                  />
-                  <img
-                    className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                  />
-                  <img
-                    className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                  />
-                  <img
-                    className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                  />
-                </div>
+                <img
+                  className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
+                  src={`/images/${product.image}`}
+                  alt={product.title}
+                />
+                <img
+                  className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
+                  src={`/images/${product.image}`}
+                  alt={product.title}
+                />
+                <img
+                  className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
+                  src={`/images/${product.image}`}
+                  alt={product.title}
+                />
+                <img
+                  className="lg:w-20 w-16 bg-[#dbc8c8] rounded-lg p-1"
+                  src={`/images/${product.image}`}
+                  alt={product.title}
+                />
+              </div>
 
-                <div className="flex justify-center">
-                  <img
-                    className="bg-[#dbc8c8] rounded-lg lg:w-96 w-80 lg:h-full"
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                  />
-                </div>
+              <div className="flex justify-center">
+                <img
+                  className="bg-[#dbc8c8] rounded-lg lg:w-96 w-80 lg:h-full"
+                  src={`/images/${product.image}`}
+                  alt={product.title}
+                />
+              </div>
 
               <div className="flex flex-col px-5 md:px-10 lg:px-0 gap-3 py-2">
                 <h1 className="text-2xl font-medium">{product.title}</h1>
@@ -86,7 +88,13 @@ const ProductDetail = () => {
                       <img className="w-4" src={linkedin} alt="linkedin" />
                     </div>
                   </div>
-                  <img src={favorite} alt="favorite" />
+                  <button onClick={ ()=> handleFavorite(product.id)}>
+                    {favorites.includes(product.id) ? (
+                      <i className="fa-regular text-red-500 fa-heart"></i>
+                    ) : (
+                      <i className="fa-solid text-red-500 fa-heart"></i>
+                    )}
+                  </button>
                 </div>
                 <div className="flex gap-5 pt-10">
                   <div>
