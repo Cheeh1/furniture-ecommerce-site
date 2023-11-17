@@ -1,6 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import "../config/Firebase";
+import toast from "react-hot-toast"
 
 interface FormData {
   email: string;
@@ -24,8 +27,39 @@ const Register = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const auth = getAuth();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      const { email, password } = data;
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success("User successfully registered", {
+        duration: 2000,
+        position: "top-center",
+        className: "text-sm",
+      });
+      console.log("User succesfully registered");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+       if (error.message === "Firebase: Error (auth/network-request-failed).") {
+         toast.error("Network connection failed", {
+           duration: 2000,
+           position: "top-center",
+           className: "text-sm",
+         });
+       } else if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+         toast.error("Email already in use", {
+           duration: 2000,
+           position: "top-center",
+           className: "text-sm",
+         });
+       } else {
+         console.log("Error registering user:", error.message);
+       }
+      } else {
+        console.log("Unknown error:", error);
+      }
+    }
   };
 
   return (

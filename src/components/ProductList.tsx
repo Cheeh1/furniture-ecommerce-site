@@ -10,7 +10,7 @@ const ProductList = () => {
           <h1 className="lg:text-3xl text-xl md:text-2xl font-semibold text-center bg-[#dbc8c8] px-10 py-4 rounded-sm">
             Browse through all Items
           </h1>
-          <section className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3  gap-x-10 gap-y-10">
+          <section className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-x-10 gap-y-10">
             {ProductData.map((product) => (
               <div key={product.id} className="overflow-hidden">
                 <Link to={`/products/${product.id}`}>

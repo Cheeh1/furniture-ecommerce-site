@@ -1,6 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface FormData {
   email: string;
@@ -16,6 +19,8 @@ const schema = z.object({
 });
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -24,9 +29,44 @@ const Login = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      const { email, password } = data;
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Successfully logged in", {
+        duration: 2000,
+        position: "top-center",
+        className: "text-sm",
+      });
+      console.log("Successfully logged in");
+      setTimeout(() => {
+        navigate("/checkout")
+      }, 2000)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.message === "Firebase: Error (auth/network-request-failed).") {
+          toast.error("Network connection failed", {
+            duration: 2000,
+            position: "top-center",
+            className: "text-sm",
+          });
+        } else if (
+          error.message === "Firebase: Error (auth/invalid-login-credentials).") {
+          toast.error("Invalid login details", {
+            duration: 2000,
+            position: "top-center",
+            className: "text-sm",
+          });
+        } else {
+          console.log("Error logging in user:", error.message);
+        }
+      } else {
+        console.log("Unknown error:", error);
+      }
+    }
   };
+
+  const auth = getAuth();
 
   return (
     <>
@@ -58,12 +98,16 @@ const Login = () => {
               className="rounded-lg"
             />
             {errors.password && <p>{errors.password.message}</p>}
-            <p className="text-[10px] font-light">Lost Your Password?</p>
+            <Link to="/forgotten">
+              <p className="text-[10px] font-semibold text-gray-800">
+                Lost Your Password?
+              </p>
+            </Link>
           </div>
           <input
             type="submit"
             value="Log In"
-            className="text-sm py-2 border border-black rounded-lg w-20"
+            className="text-sm py-2 border border-black rounded-lg w-20 cursor-pointer"
           />
         </form>
       </section>

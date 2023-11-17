@@ -9,19 +9,22 @@ import Cart from "../screens/Cart";
 import Contact from "../screens/Contact";
 import Errorpage from "../screens/Errorpage";
 import Favorite from "../screens/Favorite";
+import Forgotten from "../screens/Forgotten";
+import Protected from "../components/Protected";
 const RouterLink = () => {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Store />}/>
-        <Route path="/products/:Id" element={<ProductDetail />}/>
-        <Route path="/account" element={<Account />}/>
-        <Route path="/checkout" element={<Checkout />}/>
-        <Route path="/cart" element={<Cart />}/>
-        <Route path="/contact" element={<Contact />}/>
-        <Route path="/favorite" element={<Favorite />}/>
-        <Route path="*" element={<Errorpage />}/>
+        <Route path="/" element={<Store />} />
+        <Route path="/products/:Id" element={<ProductDetail />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/checkout" element={<Protected><Checkout /></Protected>} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/favorite" element={<Favorite />} />
+        <Route path="/forgotten" element={<Forgotten />} />
+        <Route path="*" element={<Errorpage />} />
       </Routes>
       <Footer />
     </Router>
