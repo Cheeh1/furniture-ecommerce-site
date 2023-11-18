@@ -1,30 +1,31 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import heart from "../assets/icons/heart.svg";
-// import search from "../assets/icons/search.svg";
 import cart from "../assets/icons/cart.svg";
-import vector from "../assets/icons/vector.svg";
 import logo from "../assets/icons/logo.svg";
-import home from "../assets/icons/home.svg";
 import CartModal from "./CartModal";
+import { FavoriteContext } from "../context/FavoriteContext";
 
 const Links = [
   {
-    label: "Home",
+    label: "home",
     path: "/",
+    img: "home.svg",
   },
   {
-    label: "About",
-    path: "",
-  },
-  {
-    label: "Contact",
+    label: "contact",
     path: "/contact",
+    img: "vector.svg",
   },
+  // {
+  //   label: "favorite",
+  //   path: "/favorite",
+  //   img:"heart.svg"
+  // }
 ];
 
 const Navbar = () => {
-  const { pathname } = useLocation();
+  const { favorites } = useContext(FavoriteContext);
 
   const [modal, setModal] = useState<boolean>(false);
 
@@ -35,38 +36,32 @@ const Navbar = () => {
   return (
     <>
       <nav className="lg:px-12 flex gap-16 md:justify-between md:px-10 lg:justify-between items-center">
-        <div>
+        <Link to="/">
           <img src={logo} alt="logo" />
-        </div>
-        <ul className="hidden gap-10 font-medium">
+        </Link>
+        <ul className="flex gap-10 items-center">
           {Links.map((link, index) => (
-            <Link
-              key={index}
-              to={link.path}
-              className={`${pathname === link.path ? " text-[#777474]" : ""}`}
-            >
-              {link.label}
+            <Link key={index} to={link.path}>
+              <img src={`../src/assets/icons/${link.img}`} alt={link.label} />
             </Link>
           ))}
-        </ul>
-        <div className="flex gap-10 items-center">
-          <Link to="/">
-            <img className="w-7" src={home} alt="home" />
-          </Link>
-          <Link to="/contact">
-            <img src={vector} alt="vector" />
-          </Link>
           <Link to="/favorite">
-            <img src={heart} alt="heart" />
+            <div className="relative">
+              <img src={heart} alt="heart" />
+              {favorites.length > 0 && (
+                <span className="absolute top-0 left-3 text-gray-100 bg-gray-800 px-1.5 py-0 text-[12px] font-semibold rounded-sm">
+                  {favorites.length}
+                </span>
+              )}
+            </div>
           </Link>
-
           <img
             onClick={handleModal}
             className="cursor-pointer"
             src={cart}
             alt="cart"
           />
-        </div>
+        </ul>
       </nav>
 
       <CartModal action={handleModal} toggle={modal} />

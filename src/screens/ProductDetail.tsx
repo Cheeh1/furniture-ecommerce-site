@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext} from "react";
 import arrow from "../assets/icons/arrow.svg";
 import starFilled from "../assets/icons/star-filled.svg";
 // import favorite from "../assets/icons/favorite.svg";
@@ -8,13 +8,14 @@ import facebook from "../assets/icons/facebook.svg";
 import twitter from "../assets/icons/twitter.svg";
 import linkedin from "../assets/icons/linkedin.svg";
 import { ProductData } from "../data/ProductData";
-import { useFavorite } from "../hooks/useFavorite";
+import { FavoriteContext } from "../context/FavoriteContext";
 
 const ProductDetail = () => {
-  const { favorites, handleFavorite } = useFavorite();
-  const [count, setCount] = useState<number>(0);
-  const { Id } = useParams();
+  const {favorites, handleFavorite} = useContext(FavoriteContext);
 
+  const [count, setCount] = useState<number>(0);
+
+  const { Id } = useParams();
   const parsedId = Id ? parseInt(Id) : 1;
 
   const product = ProductData.find((item) => item.id === parsedId);
@@ -90,9 +91,9 @@ const ProductDetail = () => {
                   </div>
                   <button onClick={ ()=> handleFavorite(product.id)}>
                     {favorites.includes(product.id) ? (
-                      <i className="fa-regular text-red-500 fa-heart"></i>
-                    ) : (
                       <i className="fa-solid text-red-500 fa-heart"></i>
+                      ) : (
+                      <i className="fa-regular text-red-500 fa-heart"></i>
                     )}
                   </button>
                 </div>
