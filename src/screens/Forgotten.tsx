@@ -45,7 +45,7 @@ const Forgotten = () => {
   };
   return (
     <>
-      <section className="flex flex-col items-center my-56 gap-4">
+      <section className="border py-20 flex flex-col items-center gap-4">
         <h1 className="text-3xl font-medium">Enter your email</h1>
         <input
           type="email"

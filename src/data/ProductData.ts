@@ -20,7 +20,7 @@ export const ProductData: ProductData[] = [
   {
     id: 2,
     image: "granite-dining-table-with-dining-chair.png",
-    title: "Granite dining table with dining chair",
+    title: "Granite dining table with chair",
     price: 25000,
     category: "Table, Chair",
     description:

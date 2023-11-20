@@ -3,6 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Header from "../components/Header";
 import Info from "../components/Info";
+import { usePaystackPayment } from "react-paystack";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   fname: string;
@@ -30,10 +33,43 @@ const Checkout = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
+    initializePayment(onSuccess, onClose) // initialize the payment when the form submits.
+  };
+
+
+  // integrating paystack using usePaystackPayment
+  const initializePayment = usePaystackPayment({
+    reference: new Date().getTime().toString(),
+    email: getValues("email"),
+    firstname: getValues("fname"),
+    lastname: getValues("lname"),
+    phone: getValues("phone"),
+    amount: 100000,
+    publicKey: import.meta.env.VITE_PUBLICKEY,
+  });
+
+  // pop-up after a successfull transaction
+  const navigate = useNavigate();
+  const onSuccess = () => {
+    toast.success("Thanks for doing business with us! Come back soon!!", {
+      className: " text-sm font-medium",
+    });
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
+
+  // pop-up after the transcation is aborted
+  const onClose = () => {
+    toast.error("Wait! You need this furniture, don't go😥", {
+      className: "text-sm font-medium",
+      duration: 3000,
+    });
   };
 
   return (
@@ -174,7 +210,8 @@ const Checkout = () => {
           <input
             type="submit"
             value="Proceed to Payemnt"
-            className="text-sm py-2 px-4 border border-black rounded-lg md:mx-20 lg:mx-20"
+            // onClick={() => initializePayment(onSuccess, onClose)}  use onclick to render both the variable holding the alll config and the onSuccess and onclose as parameteres
+            className="text-sm py-2 px-4 border border-black rounded-lg md:mx-20 lg:mx-20 cursor-pointer"
           />
         </section>
       </form>

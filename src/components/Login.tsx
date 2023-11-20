@@ -1,60 +1,46 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { SubmitHandler } from "react-hook-form";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
-interface FormData {
-  email: string;
-  password: string;
-}
-
-const schema = z.object({
-  email: z
-    .string()
-    .min(5, { message: "Input your email" })
-    .email("Input a valid email"),
-  password: z.string().min(5, { message: "Password is too short" }),
-});
+import { FormData, useFormData } from "../hooks/useFormData";
+import eye from "../assets/icons/eye-regular.svg";
+import eyeSlash from "../assets/icons/eye-slash-regular.svg";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+    errors,
+    reset,
+    showPassword,
+    handleShowPassword,
+  } = useFormData();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
       const { email, password } = data;
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Successfully logged in", {
-        duration: 2000,
-        position: "top-center",
         className: "text-sm",
       });
       console.log("Successfully logged in");
+      reset(); // clears the input after validating input
       setTimeout(() => {
-        navigate("/checkout")
-      }, 2000)
+        navigate("/checkout");
+      }, 2000);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        if (error.message === "Firebase: Error (auth/network-request-failed).") {
+        if (
+          error.message === "Firebase: Error (auth/network-request-failed)."
+        ) {
           toast.error("Network connection failed", {
-            duration: 2000,
-            position: "top-center",
             className: "text-sm",
           });
         } else if (
-          error.message === "Firebase: Error (auth/invalid-login-credentials).") {
+          error.message === "Firebase: Error (auth/invalid-login-credentials)."
+        ) {
           toast.error("Invalid login details", {
-            duration: 2000,
-            position: "top-center",
             className: "text-sm",
           });
         } else {
@@ -84,20 +70,38 @@ const Login = () => {
               id="email"
               className="rounded-lg md:w-72"
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-[10px] font-medium">
+                {errors.email.message}
+              </p>
+            )}
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="relative flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="">
               Password
             </label>
             <input
               {...register("password")}
-              type="text"
+              type={!showPassword ? "password" : "text"}
               name="password"
               id="password"
               className="rounded-lg"
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            <span
+              onClick={handleShowPassword}
+              className="absolute w-5 right-3 top-9 cursor-pointer"
+            >
+              {!showPassword ? (
+                <img src={eyeSlash} alt="eye-slash" />
+              ) : (
+                <img src={eye} alt="eye" />
+              )}
+            </span>
+            {errors.password && (
+              <p className="text-red-500 text-[10px] font-medium">
+                Input your password
+              </p>
+            )}
             <Link to="/forgotten">
               <p className="text-[10px] font-semibold text-gray-800">
                 Lost Your Password?

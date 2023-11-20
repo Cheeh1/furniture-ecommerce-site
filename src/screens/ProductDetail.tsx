@@ -1,19 +1,50 @@
 import { Link, useParams } from "react-router-dom";
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import arrow from "../assets/icons/arrow.svg";
 import starFilled from "../assets/icons/star-filled.svg";
-// import favorite from "../assets/icons/favorite.svg";
 import starHalf from "../assets/icons/star-half.svg";
 import facebook from "../assets/icons/facebook.svg";
 import twitter from "../assets/icons/twitter.svg";
 import linkedin from "../assets/icons/linkedin.svg";
 import { ProductData } from "../data/ProductData";
 import { FavoriteContext } from "../context/FavoriteContext";
+import { useDispatch } from "react-redux";
+import { addToCart, updateQuantity } from "../cartSlice";
+import toast from "react-hot-toast";
+import { CartItem } from "../cartSlice"; // reused the type from cartSlice.ts
 
 const ProductDetail = () => {
-  const {favorites, handleFavorite} = useContext(FavoriteContext);
+  const dispatch = useDispatch();
 
-  const [count, setCount] = useState<number>(0);
+  const handleAddToCart = () => {
+    if (product) {
+      const newItem: CartItem = {
+        id: product.id,
+        title: product.title,
+        image: product.image,
+        price: product.price,
+        quantity: count,
+        subTotalAmount: count * product.price,
+      };
+      dispatch(addToCart(newItem));
+      toast.success("Item added to cart", {
+        duration: 1000,
+        className: "text-sm",
+      });
+    }
+  };
+
+  const handleQuantityChange = (newCount: number) => {
+    setCount(newCount);
+
+    if (product) {
+      dispatch(updateQuantity({ itemId: product.id, quantity: newCount }));
+    }
+  };
+
+  const { favorites, handleFavorite } = useContext(FavoriteContext);
+
+  const [count, setCount] = useState<number>(1);
 
   const { Id } = useParams();
   const parsedId = Id ? parseInt(Id) : 1;
@@ -25,9 +56,13 @@ const ProductDetail = () => {
         {product ? (
           <main className="pt-10 pb-20 gap-10 flex flex-col">
             <section className="flex gap-2 lg:px-60 px-5">
-              <p className="text-sm">Home</p>
+              <Link to="/">
+                <p className="text-sm">Home</p>
+              </Link>
               <img className="w-3" src={arrow} alt="arrow" />
-              <p className="text-sm">Store</p>
+              <Link to="/">
+                <p className="text-sm">Store</p>
+              </Link>
               <img className="w-3" src={arrow} alt="arrow" />
               <p className="font-medium text-sm">{product.title}</p>
             </section>
@@ -66,7 +101,7 @@ const ProductDetail = () => {
 
               <div className="flex flex-col px-5 md:px-10 lg:px-0 gap-3 py-2">
                 <h1 className="text-2xl font-medium">{product.title}</h1>
-                <p className="text-[#9F9F9F] font-medium text-lg">{`$ ${product.price}.00`}</p>
+                <p className="text-[#9F9F9F] font-medium text-lg">{`$ ${product.price.toFixed(2)}`}</p>
                 <div className="flex gap-2 items-center">
                   <div className="flex gap-2">
                     <img src={starFilled} alt="star-logo" />
@@ -89,10 +124,10 @@ const ProductDetail = () => {
                       <img className="w-4" src={linkedin} alt="linkedin" />
                     </div>
                   </div>
-                  <button onClick={ ()=> handleFavorite(product.id)}>
+                  <button onClick={() => handleFavorite(product.id)}>
                     {favorites.includes(product.id) ? (
                       <i className="fa-solid text-red-500 fa-heart"></i>
-                      ) : (
+                    ) : (
                       <i className="fa-regular text-red-500 fa-heart"></i>
                     )}
                   </button>
@@ -106,7 +141,9 @@ const ProductDetail = () => {
 
                     <div className="px-5 flex items-center border border-gray-200 rounded">
                       <button
-                        onClick={() => setCount(count > 0 ? count - 1 : 0)}
+                        onClick={() =>
+                          handleQuantityChange(count > 1 ? count - 1 : 1)
+                        }
                         type="button"
                         className=" text-black"
                       >
@@ -117,11 +154,16 @@ const ProductDetail = () => {
                         type="number"
                         id="Quantity"
                         value={count}
+                        onChange={(e) =>
+                          handleQuantityChange(parseInt(e.target.value))
+                        }
                         className="h-10 w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                       />
 
                       <button
-                        onClick={() => setCount(count < 5 ? count + 1 : 5)}
+                        onClick={() =>
+                          handleQuantityChange(count < 5 ? count + 1 : 5)
+                        }
                         type="button"
                         className="text-black"
                       >
@@ -129,7 +171,10 @@ const ProductDetail = () => {
                       </button>
                     </div>
                   </div>
-                  <button className="rounded-[10px] border py-2 px-4 text-sm font-medium border-black">
+                  <button
+                    onClick={handleAddToCart}
+                    className="rounded-[10px] border py-2 px-4 text-sm font-medium border-black"
+                  >
                     Add To Cart
                   </button>
                 </div>
@@ -159,7 +204,7 @@ const ProductDetail = () => {
                   <Link to={`/products/${product.id}`}>
                     <p className="text-md text-[#969393]">{product.title}</p>
                   </Link>
-                  <p className="font-medium text-xl ">{`$ ${product.price}.00`}</p>
+                  <p className="font-medium text-xl ">{`$ ${product.price.toFixed(2)}`}</p>
                 </div>
               </div>
             ))}

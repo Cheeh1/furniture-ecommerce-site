@@ -1,31 +1,20 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { SubmitHandler } from "react-hook-form";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "../config/Firebase";
-import toast from "react-hot-toast"
-
-interface FormData {
-  email: string;
-  password: string;
-}
-
-const schema = z.object({
-  email: z
-    .string()
-    .min(5, { message: "Input your email" })
-    .email("Input a valid email"),
-  password: z.string().min(5, { message: "Password is too short" }),
-});
+import toast from "react-hot-toast";
+import { FormData, useFormData } from "../hooks/useFormData";
+import eye from "../assets/icons/eye-regular.svg";
+import eyeSlash from "../assets/icons/eye-slash-regular.svg";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+    errors,
+    reset,
+    showPassword,
+    handleShowPassword,
+  } = useFormData();
 
   const auth = getAuth();
 
@@ -34,28 +23,28 @@ const Register = () => {
       const { email, password } = data;
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success("User successfully registered", {
-        duration: 2000,
-        position: "top-center",
         className: "text-sm",
       });
+      reset(); // clear input field after validating
       console.log("User succesfully registered");
     } catch (error: unknown) {
       if (error instanceof Error) {
-       if (error.message === "Firebase: Error (auth/network-request-failed).") {
-         toast.error("Network connection failed", {
-           duration: 2000,
-           position: "top-center",
-           className: "text-sm",
-         });
-       } else if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-         toast.error("Email already in use", {
-           duration: 2000,
-           position: "top-center",
-           className: "text-sm",
-         });
-       } else {
-         console.log("Error registering user:", error.message);
-       }
+        if (
+          error.message === "Firebase: Error (auth/network-request-failed)."
+        ) {
+          toast.error("Network connection failed", {
+            className: "text-sm",
+          });
+        } else if (
+          error.message === "Firebase: Error (auth/email-already-in-use)."
+        ) {
+          toast.error("Email already in use", {
+            className: "text-sm",
+          });
+          reset(); // clears form if there is a wrong use of email
+        } else {
+          console.log("Error registering user:", error.message);
+        }
       } else {
         console.log("Unknown error:", error);
       }
@@ -78,20 +67,40 @@ const Register = () => {
               id="email"
               className="rounded-lg"
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-[10px] font-medium">
+                {errors.email.message}
+              </p>
+            )}
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="relative flex flex-col gap-1">
             <label className="text-sm font-medium" htmlFor="">
               Password
             </label>
+
             <input
               {...register("password")}
-              type="text"
+              type={!showPassword ? "password" : "text"}
               name="password"
               id="password"
               className="rounded-lg"
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            <span
+              onClick={handleShowPassword}
+              className="absolute w-5 right-3 bottom-3 cursor-pointer"
+            >
+              {!showPassword ? (
+                <img src={eyeSlash} alt="eye-slash" />
+              ) : (
+                <img src={eye} alt="eye" />
+              )}
+            </span>
+
+            {errors.password && (
+              <p className="text-red-500 text-[10px] font-medium">
+                {errors.password.message}
+              </p>
+            )}
           </div>
           <p className="w-80 text-[10px]">
             Your personal data will be used to support your experience
@@ -102,7 +111,7 @@ const Register = () => {
           <input
             type="submit"
             value="Register"
-            className="text-sm py-2 border border-black rounded-lg w-20"
+            className="text-sm py-2 border border-black rounded-lg w-20 cursor-pointer"
           />
         </form>
       </section>
