@@ -80,52 +80,76 @@ export const ProductData: ProductData[] = [
     description:
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
-  //   {
-  //     image: "",
-  //     title: "",
-  //     price: "",
-  //     description: "",
-  //   },
+  {
+    id: 9,
+    image: "plain-console-1.png",
+    title: "Plain sonsole",
+    price: 258200,
+    category: "Table",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 10,
+    image: "reclaimed-teak-sideboard-1.png",
+    title: "Reclaimed teak Sideboard",
+    price: 20000,
+    category: "Sideboard",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 11,
+    image: "sjp-08251.png",
+    title: "Beach chair and table",
+    price: 200000,
+    category: "Table, Chair",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 12,
+    image: "bella-chair-and-table-1.png",
+    title: "Bella chair and table",
+    price: 100000,
+    category: "Chair, Table",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 13,
+    image: "granite-square-side-table-2.png",
+    title: "Granite sqaure side table",
+    price: 258800,
+    category: "Table",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 14,
+    image: "asgaard-sofa-2.png",
+    title: "Asgaard sofa",
+    price: 250000,
+    category: "Sofa",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 15,
+    image: "maya-sofa-three-seater-1.png",
+    title: "Maya sofa three seater",
+    price: 115000,
+    category: "Sofa",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
+  {
+    id: 16,
+    image: "maya-sofa-three-seater-1.png",
+    title: "Outdoor sofa set",
+    price: 244000,
+    category: " Sofa",
+    description:
+      "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique facere placeat quos quidem necessitatibus ad sapiente fuga, architecto error tenetur dolorem, ut cum laudantium. Soluta modi veritatis nulla tempore sint.",
+  },
 ];

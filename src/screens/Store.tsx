@@ -8,7 +8,7 @@ import grid from "../assets/icons/grid-big-round.svg"
 import view from "../assets/icons/view-list.svg"
 
 const Store = () => {
-  const itemPerPage = 4; //Number of items to display per page
+  const itemPerPage = 8; //Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate the index range for the current page
@@ -34,11 +34,11 @@ const Store = () => {
         <div className="flex flex-col gap-10 pt-10">
           <div className="flex justify-between flex-col md:flex-row lg:flex-row gap-2 md:gap-0 lg:gap-0 items-center bg-[#dbc8c8] px-2 md:px-10 lg:px-10 py-4 rounded-sm text-gray-800">
             <div className="flex items-center gap-3">
-                <img src={filter} alt="filter" />
-                <p className="font-medium">Filter</p>
-                <img src={grid} alt="grid" />
-                <img src={view} alt="view-list" />
-                <hr className="border py-4"/>
+              <img src={filter} alt="filter" />
+              <p className="font-medium">Filter</p>
+              <img src={grid} alt="grid" />
+              <img src={view} alt="view-list" />
+              <hr className="border py-4" />
               <p className="text-sm">Showing 1-8 of 16 results</p>
             </div>
             <div className="flex gap-3">
@@ -105,7 +105,7 @@ const Store = () => {
           )}
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="font-medium rounded-[10px] py-2 px-4 bg-[#FAF4F4]"
+            className="font-medium rounded-[10px] py-2 px-4 bg-[#FAF4F4] hover:bg-[#dbc8c8]"
           >
             Next
           </button>
