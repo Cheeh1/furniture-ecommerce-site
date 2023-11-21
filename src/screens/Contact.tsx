@@ -8,7 +8,7 @@ const Contact = () => {
   return (
     <>
       <Header children="Contact" />
-      <main className="flex flex-col gap-20 pt-10 pb-20">
+      <main className="flex flex-col gap-20 pt-10 pb-20 text-gray-700">
         <section className="flex flex-col gap-2 items-center">
           <h1 className="font-semibold text-2xl">Get In Touch With Us</h1>
           <p className="text-[#9F9F9F] text-center px-5 md:w-1/2 lg:w-1/2">

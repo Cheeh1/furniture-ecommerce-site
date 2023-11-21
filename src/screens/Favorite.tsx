@@ -13,10 +13,10 @@ const Favorite = () => {
   return (
     <>
       <main>
-        <h1 className="lg:text-3xl text-xl md:text-2xl font-semibold text-center bg-[#dbc8c8] px-10 py-4 rounded-sm">
+        <h1 className="lg:text-3xl text-xl md:text-2xl font-semibold text-center bg-[#dbc8c8] px-10 py-4 rounded-sm text-gray-700">
           Favorited Items
         </h1>
-        <section className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 py-10 gap-x-10 gap-y-10">
+        <section className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 py-10 gap-x-10 gap-y-10">
           {favoriteProducts.map((product) => (
             <div
               key={product.id}

@@ -53,7 +53,7 @@ const Register = () => {
 
   return (
     <>
-      <section className="flex flex-col gap-6">
+      <section className="flex flex-col gap-6 text-gray-700">
         <h1 className="text-2xl font-semibold">Register</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">

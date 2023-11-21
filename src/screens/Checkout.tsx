@@ -6,6 +6,8 @@ import Info from "../components/Info";
 import { usePaystackPayment } from "react-paystack";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface FormData {
   fname: string;
@@ -29,6 +31,9 @@ const schema = z.object({
 });
 
 const Checkout = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const totalAmount = useSelector((state: RootState) => state.cart.totalAmount);
+
   const {
     register,
     handleSubmit,
@@ -38,9 +43,8 @@ const Checkout = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
-    initializePayment(onSuccess, onClose) // initialize the payment when the form submits.
+    initializePayment(onSuccess, onClose); // initialize the payment when the form submits.
   };
-
 
   // integrating paystack using usePaystackPayment
   const initializePayment = usePaystackPayment({
@@ -49,7 +53,7 @@ const Checkout = () => {
     firstname: getValues("fname"),
     lastname: getValues("lname"),
     phone: getValues("phone"),
-    amount: 100000,
+    amount: totalAmount * 100,
     publicKey: import.meta.env.VITE_PUBLICKEY,
   });
 
@@ -77,7 +81,7 @@ const Checkout = () => {
       <Header children="Checkout" />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row lg:flex-row justify-evenly pt-10 pb-20 px-5"
+        className="flex flex-col gap-10 md:flex-row lg:flex-row justify-evenly pt-10 pb-20 px-5 text-gray-700"
       >
         <section className="flex flex-col gap-5 md:px-20">
           <h1 className="font-semibold text-2xl">Billing details</h1>
@@ -186,32 +190,45 @@ const Checkout = () => {
             </div>
           </div>
         </section>
-        <section className="flex flex-col gap-10">
-          <div className="flex flex-col gap-3 pt-12">
-            <div className="flex gap-40">
-              <h1 className="font-medium">Product</h1>
-              <h1 className="font-medium">Subtotal</h1>
-            </div>
-            <div className="flex gap-32">
-              <p className="text-[#9F9F9F] text-sm tracking-widest">
-                Asgaard <span className="text-black font-medium"> X 1</span>
-              </p>
-              <p className="text-[#302f2f] text-sm">$ 250000.00</p>
-            </div>
-            <div className="flex gap-40">
-              <p className="text-sm">Subtotal</p>
-              <p className="text-[#302f2f] text-sm">$ 25000.00</p>
-            </div>
-            <div className="flex gap-48">
-              <p className="text-sm">Total</p>
-              <p className="text-black font-medium">$ 25000.00</p>
+        <section className="flex flex-col gap-5">
+          <h1 className="font-semibold text-2xl">Products</h1>
+          <div className="flex flex-col gap-3">
+            {cartItems.map((item) => (
+              <div className="flex items-end gap-10 text-gray-600">
+                <div className="flex items-center gap-3">
+                  <img
+                    className="w-14"
+                    src={`/images/${item.image}`}
+                    alt={item.title}
+                  />
+                  <div className="flex flex-col">
+                    <h1 className="text-sm font-medium ">{item.title}</h1>
+                    <div className="flex flex-col">
+                      <p className="text-[12px]">
+                        <span>{item.quantity}</span> X <span>&#8358;</span>
+                        <span>{`${item.price.toFixed(2)}`}</span>
+                      </p>
+                      <p className="text-[12px] font-semibold">
+                        <span className="">SubTotal: </span>{" "}
+                        <span>&#8358;</span>
+                        {`${item.subTotalAmount.toFixed(2)}`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div className="flex justify-center rounded font-semibold text-lg px-5 py-3 text-gray-600">
+              Total amount <span>{`(${cartItems.length})`}</span> :
+              <span>&#8358;</span>
+              <span>{`${totalAmount.toFixed(2)}`}</span>
             </div>
           </div>
           <input
             type="submit"
-            value="Proceed to Payemnt"
+            value="Proceed to Payment"
             // onClick={() => initializePayment(onSuccess, onClose)}  use onclick to render both the variable holding the alll config and the onSuccess and onclose as parameteres
-            className="text-sm py-2 px-4 border border-black rounded-lg md:mx-20 lg:mx-20 cursor-pointer"
+            className="text-sm py-2 px-4 border font-medium border-black rounded-lg md:mx-20 lg:mx-20 cursor-pointer"
           />
         </section>
       </form>

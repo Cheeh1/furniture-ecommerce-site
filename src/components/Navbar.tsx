@@ -19,11 +19,11 @@ const Links = [
     path: "/contact",
     img: "vector.svg",
   },
-  // {
-  //   label: "favorite",
-  //   path: "/favorite",
-  //   img:"heart.svg"
-  // }
+  {
+    label: "store",
+    path: "/store",
+    img:"shop.svg"
+  }
 ];
 
 const Navbar = () => {
@@ -38,11 +38,11 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="lg:px-12 flex gap-16 md:justify-between md:px-10 lg:justify-between items-center">
+      <nav className="lg:px-12 flex justify-between px-5 md:px-10 items-center">
         <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
-        <ul className="flex gap-10 items-center">
+        <ul className="flex gap-5 items-center">
           {Links.map((link, index) => (
             <Link key={index} to={link.path}>
               <img src={`../src/assets/icons/${link.img}`} alt={link.label} />
@@ -52,7 +52,7 @@ const Navbar = () => {
             <div className="relative">
               <img src={heart} alt="heart" />
               {favorites.length > 0 && (
-                <span className="absolute top-0 left-4 text-gray-100 bg-gray-800 px-1.5 py-0 text-[12px] font-semibold rounded-sm">
+                <span className="absolute top-0 left-4 text-gray-100 bg-gray-700 px-1.5 py-0 text-[12px] font-semibold rounded-sm">
                   {favorites.length}
                 </span>
               )}
@@ -61,7 +61,7 @@ const Navbar = () => {
           <div className="relative cursor-pointer" onClick={handleModal}>
             <img src={cart} alt="cart" />
             {cartItems.length > 0 && (
-              <span className="absolute top-0 left-4 text-gray-100 bg-gray-800 px-1.5 py-0 text-[12px] font-semibold rounded-sm">
+              <span className="absolute top-0 left-4 text-gray-100 bg-gray-700 px-1.5 py-0 text-[12px] font-semibold rounded-sm">
                 {cartItems.length}
               </span>
             )}

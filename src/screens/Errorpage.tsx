@@ -6,7 +6,7 @@ const Errorpage = () => {
         <div className="text-center flex flex-col gap-3">
           <h1 className="font-black text-gray-200 text-9xl">404</h1>
 
-          <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="text-2xl font-bold tracking-tight text-gray-700 sm:text-4xl">
             Uh-oh!
           </p>
 
@@ -14,7 +14,7 @@ const Errorpage = () => {
           <div className="flex justify-center">
             <Link
               to="/"
-              className="text-sm font-semibold py-2 px-4 border border-black rounded-lg shadow-black shadow-sm w-40"
+              className="text-sm font-semibold py-2 px-4 border border-black rounded-lg shadow-black text-gray-700 shadow-sm w-40"
             >
               Go Back Home
             </Link>

@@ -5,7 +5,7 @@ import logo from "../assets/icons/logo.svg";
 const Header = ({children}:{children: ReactNode}) => {
   return (
     <>
-      <header className="image py-20">
+      <header className="image py-20 text-gray-700">
         <div className="flex items-center justify-center">
           <img src={logo} alt="logo" />
           <h1 className="text-3xl font-semibold">{children}</h1>

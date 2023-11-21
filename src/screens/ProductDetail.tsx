@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import arrow from "../assets/icons/arrow.svg";
 import starFilled from "../assets/icons/star-filled.svg";
 import starHalf from "../assets/icons/star-half.svg";
@@ -42,6 +42,15 @@ const ProductDetail = () => {
     }
   };
 
+  {
+    /* Use the handleProductClick function when the user clicks on the link */
+  }
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   const { favorites, handleFavorite } = useContext(FavoriteContext);
 
   const [count, setCount] = useState<number>(1);
@@ -52,7 +61,7 @@ const ProductDetail = () => {
   const product = ProductData.find((item) => item.id === parsedId);
   return (
     <>
-      <main>
+      <main className="text-gray-700">
         {product ? (
           <main className="pt-10 pb-20 gap-10 flex flex-col">
             <section className="flex gap-2 lg:px-60 px-5">
@@ -60,7 +69,7 @@ const ProductDetail = () => {
                 <p className="text-sm">Home</p>
               </Link>
               <img className="w-3" src={arrow} alt="arrow" />
-              <Link to="/">
+              <Link to="/store">
                 <p className="text-sm">Store</p>
               </Link>
               <img className="w-3" src={arrow} alt="arrow" />
@@ -101,7 +110,10 @@ const ProductDetail = () => {
 
               <div className="flex flex-col px-5 md:px-10 lg:px-0 gap-3 py-2">
                 <h1 className="text-2xl font-medium">{product.title}</h1>
-                <p className="text-[#9F9F9F] font-medium text-lg">{`$ ${product.price.toFixed(2)}`}</p>
+                <p className="text-[#9F9F9F] font-medium text-lg">
+                  <span>&#8358;</span>{" "}
+                  <span>{`${product.price.toFixed(2)}`}</span>
+                </p>
                 <div className="flex gap-2 items-center">
                   <div className="flex gap-2">
                     <img src={starFilled} alt="star-logo" />
@@ -186,31 +198,48 @@ const ProductDetail = () => {
             Product Not Found
           </p>
         )}
+
         <hr />
+
         <section className="flex flex-col items-center gap-12 py-20">
-          <h1 className="font-medium text-3xl">Related Products</h1>
-          <div className="flex flex-wrap justify-center gap-10 pr-10 items-center">
-            {ProductData.slice(0, 4).map((product) => (
-              <div key={product.id} className="overflow-hidden">
+          <h1 className="font-medium text-xl md:text-2xl lg:text-3xl text-center">
+            Other Top-Rated Products
+          </h1>
+          <div className="grid grid-cols-1 lg:grid-cols-4 px-10 md:grid-cols-3  justify-center gap-10 items-center">
+            {ProductData.slice(4, 8).map((product) => (
+              <div
+                key={product.id}
+                className="overflow-hidden border border-gray-500 rounded-lg pb-5 shadow-gray-400 shadow-sm hover:shadow-lg"
+              >
                 <Link to={`/products/${product.id}`}>
                   <img
                     src={`/images/${product.image}`}
-                    alt=""
-                    className="h-52"
+                    alt={product.title}
+                    className="h-52 w-full border border-gray-300"
                   />
                 </Link>
 
-                <div className="flex flex-col justify-center items-center bg-white pt-3">
-                  <Link to={`/products/${product.id}`}>
-                    <p className="text-md text-[#969393]">{product.title}</p>
-                  </Link>
-                  <p className="font-medium text-xl ">{`$ ${product.price.toFixed(2)}`}</p>
+                <div className="flex flex-col items-start gap-2 pl-2 bg-white pt-3">
+                  <p className="text-[#969393] w-54 text-center font-semibold">
+                    {product.title}
+                  </p>
+                  <div className="px-1 flex gap-14 items-end">
+                    <p className="font-medium text-sm">
+                      <span>&#8358;</span>{" "}
+                      <span>{`${product.price.toFixed(2)}`}</span>
+                    </p>
+                    <Link to={`/products/${product.id}`}>
+                      <button className="text-sm font-medium text-gray-800 bg-[#dbc8c8] py-1 px-2 rounded-lg">
+                        View details
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
           <div className="flex flex-col gap-1">
-            <Link to="/">
+            <Link to="/store">
               <button className="font-medium text-md">View More</button>
             </Link>
             <hr className="border-black border-1" />

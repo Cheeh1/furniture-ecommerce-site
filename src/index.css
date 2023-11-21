@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Background image for header component */
 .image {
   background-image: url('/images/bg.png');
+  background-position: center;
+  background-size: cover;
+}
+
+/* Background image for instagram section in home page */
+.social-image {
+  background-image: url('/images/bg-insta.png');
   background-position: center;
   background-size: cover;
 }

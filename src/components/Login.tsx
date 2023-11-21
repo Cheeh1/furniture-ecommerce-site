@@ -56,7 +56,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="flex flex-col gap-6">
+      <section className="flex flex-col gap-6 text-gray-700">
         <h1 className="text-2xl font-semibold">Login In</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
@@ -103,7 +103,7 @@ const Login = () => {
               </p>
             )}
             <Link to="/forgotten">
-              <p className="text-[10px] font-semibold text-gray-800">
+              <p className="text-[10px] font-semibold text-gray-500">
                 Lost Your Password?
               </p>
             </Link>
