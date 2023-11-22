@@ -87,7 +87,7 @@ const Checkout = () => {
           <h1 className="font-semibold text-2xl">Billing details</h1>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="firstname" className="text-sm font-medium">
                 First Name
               </label>
               <input
@@ -95,7 +95,7 @@ const Checkout = () => {
                 type="text"
                 name="fname"
                 id="fname"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.fname && (
                 <p className="text-red-500 text-[12px]">
@@ -104,7 +104,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="lastname" className="text-sm font-medium">
                 Last Name
               </label>
               <input
@@ -112,7 +112,7 @@ const Checkout = () => {
                 type="text"
                 name="lname"
                 id="lname"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.lname && (
                 <p className="text-red-500 text-[12px]">
@@ -121,7 +121,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="address" className="text-sm font-medium">
                 Street address
               </label>
               <input
@@ -129,7 +129,7 @@ const Checkout = () => {
                 type="text"
                 name="address"
                 id="address"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.address && (
                 <p className="text-red-500 text-[12px]">
@@ -138,7 +138,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="city" className="text-sm font-medium">
                 Town/City
               </label>
               <input
@@ -146,7 +146,7 @@ const Checkout = () => {
                 type="text"
                 name="city"
                 id="city"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.city && (
                 <p className="text-red-500 text-[12px]">
@@ -155,7 +155,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="phone" className="text-sm font-medium">
                 Phone
               </label>
               <input
@@ -163,7 +163,7 @@ const Checkout = () => {
                 type="text"
                 name="phone"
                 id="phone"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.phone && (
                 <p className="text-red-500 text-[12px]">
@@ -172,7 +172,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="email" className="text-sm font-medium">
                 Email address
               </label>
               <input
@@ -180,7 +180,7 @@ const Checkout = () => {
                 type="text"
                 name="email"
                 id="email"
-                className="rounded-lg"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
               {errors.email && (
                 <p className="text-red-500 text-[12px]">

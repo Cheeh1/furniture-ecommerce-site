@@ -52,7 +52,7 @@ const Forgotten = () => {
           id="Email"
           name="email"
           placeholder="youremail@gmail.com"
-          className="mt-1 w-72 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-md placeholder:text-sm placeholder:text-gray-400 border-text-gray-900"
+          className="mt-1 w-72 rounded-md border py-2 px-3 bg-white text-sm text-gray-700 shadow-md placeholder:text-sm placeholder:text-gray-400 border-gray-700 focus:outline"
           defaultValue={text}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setText(e.target.value)

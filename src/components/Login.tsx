@@ -60,7 +60,7 @@ const Login = () => {
         <h1 className="text-2xl font-semibold">Login In</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium" htmlFor="">
+            <label className="text-sm font-medium" htmlFor="email">
               Email Address
             </label>
             <input
@@ -68,7 +68,7 @@ const Login = () => {
               type="text"
               name="email"
               id="email"
-              className="rounded-lg md:w-72"
+              className="rounded-lg md:w-72 border px-2 py-1.5 border-gray-700 focus:outline"
             />
             {errors.email && (
               <p className="text-red-500 text-[10px] font-medium">
@@ -77,7 +77,7 @@ const Login = () => {
             )}
           </div>
           <div className="relative flex flex-col gap-1">
-            <label className="text-sm font-medium" htmlFor="">
+            <label className="text-sm font-medium" htmlFor="password">
               Password
             </label>
             <input
@@ -85,7 +85,7 @@ const Login = () => {
               type={!showPassword ? "password" : "text"}
               name="password"
               id="password"
-              className="rounded-lg"
+              className="rounded-lg border px-2 py-1.5 border-gray-700 focus:outline"
             />
             <span
               onClick={handleShowPassword}

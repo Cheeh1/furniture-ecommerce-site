@@ -3,8 +3,37 @@ import Info from "../components/Info";
 import location from "../assets/icons/location.svg";
 import phone from "../assets/icons/phone.svg";
 import clock from "../assets/icons/clock.svg";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+const schema = z.object({
+  name: z.string().min(3, { message: "Name is required" }),
+  message: z.string().min(1, { message: "Message is required" }),
+  subject: z.string().min(1),
+  email: z
+    .string()
+    .min(5, { message: "Email is required" })
+    .email("Invalid Email Address"),
+});
 
 const Contact = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
+  };
   return (
     <>
       <Header children="Contact" />
@@ -47,56 +76,83 @@ const Contact = () => {
             </div>
           </div>
 
-          <form className="flex flex-col gap-5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-5"
+          >
             <div className="flex flex-col gap-2">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="Yourname" className="text-sm font-medium">
                 Your Name
               </label>
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="John Doe"
-                className="rounded-lg lg:w-96 placeholder:text-[10px]"
-              />
+              <div className="flex flex-col gap-1">
+                <input
+                  {...register("name")}
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="John Doe"
+                  className="rounded-lg lg:w-96 placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
+                />
+                {errors.name && (
+                  <p className="text-[10px] text-red-500">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="email" className="text-sm font-medium">
                 Email address
               </label>
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="johndoe@gmail.com"
-                className="rounded-lg placeholder:text-[10px]"
-              />
+              <div className="flex flex-col gap-1">
+                <input
+                  {...register("email")}
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="johndoe@gmail.com"
+                  className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
+                />
+                {errors.email && (
+                  <p className="text-[10px] text-red-500">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="subject" className="text-sm font-medium">
                 Subject
               </label>
               <input
+                {...register("subject")}
                 type="text"
-                name=""
-                id=""
+                name="subject"
+                id="subject"
                 placeholder="This is an optional"
-                className="rounded-lg placeholder:text-[10px]"
+                className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
               />
             </div>
             <div className="flex flex-col gap-3">
-              <label htmlFor="" className="text-sm font-medium">
+              <label htmlFor="message" className="text-sm font-medium">
                 Message
               </label>
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Hi i'd like to ask about"
-                className="rounded-lg h-20 placeholder:text-[10px]"
-              />
+              <div className="flex flex-col gap-1">
+                <textarea
+                  {...register("message")}
+                  name="message"
+                  id="message"
+                  placeholder="Hi i'd like to ask about"
+                  className="rounded-lg placeholder:text-[10px] border px-2 py-2 border-gray-700 focus:outline"
+                ></textarea>
+                {errors.message && (
+                  <p className="text-[10px] text-red-500">
+                    {errors.message.message}
+                  </p>
+                )}
+              </div>
             </div>
-            <button className="text-sm py-2 border border-black rounded-lg w-40">
+            <button type="submit" className="text-sm py-2 border border-black rounded-lg w-40">
               Submit
             </button>
           </form>
