@@ -15,15 +15,15 @@ const Links = [
     img: "home.svg",
   },
   {
+    label: "store",
+    path: "/store",
+    img:"shop.png"
+  },
+  {
     label: "contact",
     path: "/contact",
     img: "vector.svg",
   },
-  {
-    label: "store",
-    path: "/store",
-    img:"shop.svg"
-  }
 ];
 
 const Navbar = () => {
