@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart } from "../cartSlice";
-import { RootState } from "../store";
+import { removeFromCart } from "../store/cartSlice";
+import { RootState } from "../store/store";
 import close from "../assets/icons/close.svg";
 import cartClose from "../assets/icons/cart-close.svg";
 import toast from "react-hot-toast";
@@ -48,7 +48,7 @@ const CartModal: FC<Props> = ({ toggle, action }) => {
                 <img src={cartClose} alt="cart" />
               </div>
             </div>
-              <hr className="border-1 bg-[#D9D9D9] pt-[1px] my-2" />
+            <hr className="border-1 bg-[#D9D9D9] pt-[1px] my-2" />
 
             <div className="mt-4 flex flex-col gap-6">
               {cartItems.length ? (

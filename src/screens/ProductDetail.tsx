@@ -9,9 +9,9 @@ import linkedin from "../assets/icons/linkedin.svg";
 import { ProductData } from "../data/ProductData";
 import { FavoriteContext } from "../context/FavoriteContext";
 import { useDispatch } from "react-redux";
-import { addToCart, updateQuantity } from "../cartSlice";
+import { addToCart, updateQuantity } from "../store/cartSlice";
 import toast from "react-hot-toast";
-import { CartItem } from "../cartSlice"; // reused the type from cartSlice.ts
+import { CartItem } from "../store/cartSlice"; // reused the type from cartSlice.ts
 
 const ProductDetail = () => {
   const dispatch = useDispatch();

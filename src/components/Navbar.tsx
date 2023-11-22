@@ -5,7 +5,7 @@ import cart from "../assets/icons/cart.svg";
 import logo from "../assets/icons/logo.svg";
 import CartModal from "./CartModal";
 import { FavoriteContext } from "../context/FavoriteContext";
-import { RootState } from "../store";
+import { RootState } from "../store/store";
 import { useSelector } from "react-redux/";
 
 const Links = [
@@ -17,7 +17,7 @@ const Links = [
   {
     label: "store",
     path: "/store",
-    img:"shop.png"
+    img: "shop.png",
   },
   {
     label: "contact",
