@@ -31,7 +31,8 @@ const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += action.payload.quantity;
-        existingItem.subTotalAmount = existingItem.quantity * existingItem.price;
+        existingItem.subTotalAmount =
+          existingItem.quantity * existingItem.price;
       } else {
         const newItem = {
           ...action.payload,
@@ -39,7 +40,8 @@ const cartSlice = createSlice({
         };
         state.cartItems.push(newItem);
       }
-      state.totalAmount += action.payload.subTotalAmount;
+      // state.totalAmount += action.payload.subTotalAmount;
+      state.totalAmount += action.payload.quantity * action.payload.price;
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const removedItem = state.cartItems.find(
@@ -61,11 +63,12 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.itemId
       );
       if (itemToUpdate) {
-        itemToUpdate.quantity = action.payload.quantity;
-        itemToUpdate.subTotalAmount = itemToUpdate.quantity * itemToUpdate.price;
         state.totalAmount +=
-          (action.payload.quantity - itemToUpdate.quantity) *
-          itemToUpdate.price;
+          action.payload.quantity * itemToUpdate.price -
+          itemToUpdate.subTotalAmount;
+        itemToUpdate.quantity = action.payload.quantity;
+        itemToUpdate.subTotalAmount =
+          itemToUpdate.quantity * itemToUpdate.price;
       }
     },
   },
