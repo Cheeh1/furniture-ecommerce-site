@@ -22,7 +22,7 @@ const Links = [
   {
     label: "contact",
     path: "/contact",
-    img: "vector.svg",
+    img: "cart-original.svg",
   },
 ];
 
@@ -45,7 +45,7 @@ const Navbar = () => {
         <ul className="flex gap-5 items-center">
           {Links.map((link, index) => (
             <Link key={index} to={link.path}>
-              <img src={`../src/assets/icons/${link.img}`} alt={link.label} />
+              <img src={`/images/${link.img}`} alt={link.label} />
             </Link>
           ))}
           <Link to="/favorite">
