@@ -6,7 +6,8 @@ import Info from "../components/Info";
 import { usePaystackPayment } from "react-paystack";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../store/cartSlice";
 import { RootState } from "../store/store";
 
 interface FormData {
@@ -41,6 +42,8 @@ const Checkout = () => {
     getValues,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const dispatch = useDispatch();
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     initializePayment(onSuccess, onClose); // initialize the payment when the form submits.
@@ -66,6 +69,8 @@ const Checkout = () => {
     setTimeout(() => {
       navigate("/");
     }, 2000);
+
+    dispatch(clearCart());
   };
 
   // pop-up after the transcation is aborted

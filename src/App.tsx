@@ -6,10 +6,10 @@ const App = () => {
   return (
     <>
       <AuthContextProvider>
-        <FavoriteContextProvider>
-          <Toaster />
-          <RouterLink />
-        </FavoriteContextProvider>
+      <FavoriteContextProvider>
+        <Toaster />
+        <RouterLink />
+      </FavoriteContextProvider>
       </AuthContextProvider>
     </>
   );

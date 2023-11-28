@@ -106,7 +106,7 @@ const CartModal: FC<Props> = ({ toggle, action }) => {
 
                 {cartItems.length > 0 && (
                   <Link
-                    to="/checkout"
+                    to="/account"
                     onClick={action}
                     className="block rounded border isD border-gray-600 bg-gray-700 px-5 py-3 text-sm text-gray-100 hover:bg-gray-100 hover:text-gray-600 transition"
                   >
