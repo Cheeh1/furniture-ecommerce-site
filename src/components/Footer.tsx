@@ -39,7 +39,7 @@ const Footer = () => {
                 name=""
                 id=""
                 placeholder="john@doe.com"
-                className="rounded-l-xl bg-gray-200 border-none placeholder:text-sm font-medium"
+                className="rounded-l-xl bg-gray-200 border-none placeholder:text-sm pl-5 font-medium"
               />
               <button className="bg-[#dbc8c8] p-3 rounded-r-xl text-white font-medium">
                 Subscribe
