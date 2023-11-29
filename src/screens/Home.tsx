@@ -4,12 +4,21 @@ import img3 from "/images/cloud-sofa-three-seater-ottoman-31.png";
 import img4 from "/images/asgaard-sofa-big-1.png";
 import { ProductData } from "../data/ProductData";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Home = () => {
+  AOS.init({
+    delay: 100,
+    duration:700,
+    once: false,
+  });
+
   return (
     <>
       <main className="text-gray-700">
         <section className="flex flex-col-reverse md:flex-row lg:flex-row justify-evenly items-center py-10 text-white bg-gray-600">
-          <div className="flex flex-col gap-5">
+          <div data-aos="zoom-in-right" className="flex flex-col gap-5">
             <h1 className="text-4xl font-medium w-72">Rocket single seater</h1>
             <Link to="/store">
               <div className="flex flex-col gap-1">
@@ -18,12 +27,15 @@ const Home = () => {
               </div>
             </Link>
           </div>
-          <img className="w-96" src={img1} alt="seater" />
+          <img data-aos="zoom-in-left" className="w-96" src={img1} alt="seater" />
         </section>
 
         <section className="flex justify-evenly flex-col md:flex-row lg:flex-row pt-14 pb-20 bg-[#dbc8c8] text-gray-700">
           <div className="relative flex items-end">
-            <div className="absolute bottom-5 md:bottom-12 lg:bottom-12 left-10 flex flex-col gap-3">
+            <div
+              data-aos="zoom-in-up"
+              className="absolute bottom-5 md:bottom-12 lg:bottom-12 left-10 flex flex-col gap-3"
+            >
               <h1 className="text-xl font-medium">Side table</h1>
               <Link to="/store">
                 <div className="flex flex-col gap-1">
@@ -32,11 +44,19 @@ const Home = () => {
                 </div>
               </Link>
             </div>
-            <img className="w-96 pr-10" src={img2} alt="side-table" />
+            <img
+              data-aos="zoom-in-down"
+              className="w-96 pr-10"
+              src={img2}
+              alt="side-table"
+            />
           </div>
 
           <div className="relative flex items-center">
-            <div className="absolute bottom-5 md:bottom-12 lg:bottom-12 left-10 flex flex-col gap-3">
+            <div
+              data-aos="zoom-in-up"
+              className="absolute bottom-5 md:bottom-12 lg:bottom-12 left-10 flex flex-col gap-3"
+            >
               <h1 className="text-xl font-medium">Sofa seater</h1>
               <Link to="/store">
                 <div className="flex flex-col gap-1">
@@ -45,13 +65,21 @@ const Home = () => {
                 </div>
               </Link>
             </div>
-            <img className="w-96 pr-10" src={img3} alt="side-table" />
+            <img
+              data-aos="zoom-in-down"
+              className="w-96 pr-10"
+              src={img3}
+              alt="side-table"
+            />
           </div>
         </section>
 
         <section className="flex flex-col gap-10 py-14">
           <div className="flex flex-col gap-16">
-            <div className="flex flex-col gap-2 items-center">
+            <div
+              data-aos="zoom-in-down"
+              className="flex flex-col gap-2 items-center"
+            >
               <h1 className="text-3xl font-medium">Top Picks For You</h1>
               <p className="text-[#9F9F9F] text-center font-medium px-8">
                 Find a bright ideal to suit your taste with our great selection
@@ -59,7 +87,10 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-x-10 gap-y-10">
+            <div
+              data-aos="zoom-in-up"
+              className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-x-10 gap-y-10"
+            >
               {ProductData.slice(0, 4).map((product) => (
                 <div
                   key={product.id}
@@ -88,7 +119,10 @@ const Home = () => {
           </div>
 
           <Link to="/store">
-            <div className="flex flex-col items-center gap-1">
+            <div
+              data-aos="fade-up"
+              className="flex flex-col items-center gap-1"
+            >
               <p className="font-medium">View More</p>
               <hr className="w-20 border-gray-800" />
             </div>
@@ -96,15 +130,23 @@ const Home = () => {
         </section>
 
         <section className="flex justify-evenly flex-col md:flex-row lg:flex-row items-center bg-gray-700 text-white py-20">
-          <img className="w-96 px-5" src={img4} alt="asgaard" />
+          <img
+            data-aos="fade-right"
+            className="w-96 px-5"
+            src={img4}
+            alt="asgaard"
+          />
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col items-center">
+            <div data-aos="fade-down" className="flex flex-col items-center">
               <p className="font-medium">New Arrivals</p>
               <h1 className="text-3xl font-bold">Asgaard sofa</h1>
             </div>
             <div className="flex justify-center">
               <Link to="/store">
-                <button className="border rounded py-2 px-4 text-[10px] w-28">
+                <button
+                  data-aos="fade-up"
+                  className="border rounded py-2 px-4 text-[10px] w-28"
+                >
                   Order Now
                 </button>
               </Link>
@@ -113,10 +155,17 @@ const Home = () => {
         </section>
 
         <section className="flex flex-col items-center gap-2 py-36 social-image ">
-          <h1 className="text-4xl font-bold">Our Instagram</h1>
-          <p className="text-sm">Follow our store on Instagram</p>
+          <h1 data-aos="zoom-in" className="text-4xl font-bold">
+            Our Instagram
+          </h1>
+          <p data-aos="zoom-in" className="text-sm">
+            Follow our store on Instagram
+          </p>
           <Link to="/">
-            <button className="border-none rounded-xl py-2 px-14 bg-[#FAF4F4] text-sm shadow-gray-300 shadow-lg">
+            <button
+              data-aos="zoom-in"
+              className="border-none rounded-xl py-2 px-14 bg-[#FAF4F4] text-sm shadow-gray-300 shadow-lg"
+            >
               Follow Us
             </button>
           </Link>
