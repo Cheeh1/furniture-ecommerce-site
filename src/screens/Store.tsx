@@ -3,13 +3,13 @@ import { ProductData } from "../data/ProductData";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Info from "../components/Info";
-import filter from "../assets/icons/filter-icon.svg"
-import grid from "../assets/icons/grid-big-round.svg"
-import view from "../assets/icons/view-list.svg"
+import filter from "../assets/icons/filter-icon.svg";
+import grid from "../assets/icons/grid-big-round.svg";
+import view from "../assets/icons/view-list.svg";
 
 const Store = () => {
   const itemPerPage = 8; //Number of items to display per page
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Calculate the index range for the current page
   const indexOfLastItem = currentPage * itemPerPage;
@@ -18,14 +18,18 @@ const Store = () => {
 
   // Change page
   const paginate = (pageNumber: number) => {
-    if (pageNumber > 0 && pageNumber <= Math.ceil(ProductData.length / itemPerPage)) {
-        setCurrentPage(pageNumber);
+    if (
+      pageNumber > 0 &&
+      pageNumber <= Math.ceil(ProductData.length / itemPerPage)
+    ) {
+      setCurrentPage(pageNumber);
     } else if (pageNumber <= 0) {
-        setCurrentPage(Math.ceil(ProductData.length / itemPerPage));
+      setCurrentPage(Math.ceil(ProductData.length / itemPerPage));
     } else {
-        setCurrentPage(1);
+      setCurrentPage(1);
     }
   };
+
   return (
     <>
       <Header children="Store" />
@@ -54,36 +58,36 @@ const Store = () => {
           </div>
           <section className="px-10 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-x-10 gap-y-10">
             {currentProducts.map((product) => (
-              <div
-                key={product.id}
-                className="overflow-hidden border border-gray-500 rounded-lg pb-5 shadow-gray-400 shadow-sm hover:shadow-lg"
-              >
-                <Link to={`/products/${product.id}`}>
-                  <img
-                    src={`/images/${product.image}`}
-                    alt={product.title}
-                    className="h-52 w-full border border-gray-500"
-                  />
-                </Link>
-
-                <div className="flex flex-col items-start gap-2 pl-2 bg-white pt-3">
-                  <p className="text-[#969393] w-54 text-center font-semibold">
-                    {product.title}
-                  </p>
-                  <div className="px-1 flex gap-14 items-end">
-                    <p className="font-medium text-sm">
-                      <span>&#8358;</span>{" "}
-                      <span>{`${product.price.toFixed(2)}`}</span>
-                    </p>
+                  <div
+                    key={product.id}
+                    className="overflow-hidden border border-gray-500 rounded-lg pb-5 shadow-gray-400 shadow-sm hover:shadow-lg"
+                  >
                     <Link to={`/products/${product.id}`}>
-                      <button className="text-sm font-medium text-gray-800 bg-[#dbc8c8] py-1 px-2 rounded-lg">
-                        View details
-                      </button>
+                      <img
+                        src={`/images/${product.image}`}
+                        alt={product.title}
+                        className="h-52 w-full border border-gray-500"
+                      />
                     </Link>
+
+                    <div className="flex flex-col items-start gap-2 pl-2 bg-white pt-3">
+                      <p className="text-[#969393] w-54 text-center font-semibold">
+                        {product.title}
+                      </p>
+                      <div className="px-1 flex gap-14 items-end">
+                        <p className="font-medium text-sm">
+                          <span>&#8358;</span>{" "}
+                          <span>{`${product.price.toFixed(2)}`}</span>
+                        </p>
+                        <Link to={`/products/${product.id}`}>
+                          <button className="text-sm font-medium text-gray-800 bg-[#dbc8c8] py-1 px-2 rounded-lg">
+                            View details
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </section>
         </div>
 
